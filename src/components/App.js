@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './App.css';
 
 export function App() {
 	const [input, setInput] = useState('');
@@ -19,8 +20,9 @@ export function App() {
 
 	return (
 		<>
-			<header>
+			<header className='search-container'>
 				<input
+					className='search-box'
 					type='text'
 					placeholder='Search a Github user'
 					value={input}
@@ -28,7 +30,32 @@ export function App() {
 					onKeyPress={getUser}
 				/>
 			</header>
-			<main></main>
+			<main className='card-container'>
+				{user ? (
+					<div className='card'>
+						<div className='img-container'>
+							<img className='img' src={user.avatar_url} alt={user.name}></img>
+						</div>
+						<div className='profile'>
+							<h2>{user.name}</h2>
+							<span>{user.bio}</span>
+							<div className='user-info'>
+								<p>
+									<strong>{user.followers} Followers</strong>
+								</p>
+								<p>
+									<strong>{user.following} Following</strong>
+								</p>
+								<p>
+									<strong>{user.public_repos} Repositories</strong>
+								</p>
+							</div>
+						</div>
+					</div>
+				) : (
+					<h2 className='not-found'>No results</h2>
+				)}
+			</main>
 		</>
 	);
 }
